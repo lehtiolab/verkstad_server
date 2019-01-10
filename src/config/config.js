@@ -10,4 +10,7 @@ module.exports = {
       storage: './mstodos.sqlite',
     },
   },
+  authentication: {
+    jwtSecret: process.env.JWT_SECRET || 'secret',
+  }
 };
