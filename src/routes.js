@@ -6,4 +6,8 @@ module.exports = (app) => {
     AuthenticationControllerPolicy.signUp,
     AuthenticationController.signUp
   );
+
+  app.post('/login',
+    AuthenticationController.login
+  );
 };
