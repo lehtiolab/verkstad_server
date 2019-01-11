@@ -1,3 +1,5 @@
+const DueTaskController = require('./controllers/DueTaskController');
+
 const LogController = require('./controllers/LogController');
 
 const AuthenticationController = require('./controllers/AuthenticationController');
@@ -8,6 +10,10 @@ const MachineController = require('./controllers/MachineController');
 const TaskController = require('./controllers/TaskController');
 
 module.exports = (app) => {
+  app.get('/duetasks',
+    DueTaskController.index
+  );
+
   app.get('/logbook',
     LogController.index
   );
