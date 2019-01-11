@@ -13,10 +13,8 @@ module.exports = {
   async signUp(req, res) {
     try {
       const user = await User.create(req.body);
-      const userJson = user.toJSON();
       res.send({
-        user: userJson,
-        token: jwtSignUser(userJson),
+        user: user.toJSON(),
       });
     } catch (err) {
       res.status(400).send({
@@ -56,6 +54,19 @@ module.exports = {
       res.status(500).send({
         error: 'The login was not successful.',
       })
+    }
+  },
+  async index(req, res) {
+    try {
+      const users = await User.findAll({
+        attributes: ['name', 'email', 'createdAt'],
+        limit: 30,
+      });
+      res.send(users);
+    } catch (err) {
+      res.status(500).send({
+        error: 'An error has occured trying to fetch the users.',
+      });
     }
   },
 };

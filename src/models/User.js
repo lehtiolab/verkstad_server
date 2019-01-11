@@ -22,10 +22,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       unique: true,
     },
-    name:  {
+    name: {
       type: DataTypes.STRING,
     },
-    password:  {
+    password: {
       type: DataTypes.STRING,
     },
   }, {
