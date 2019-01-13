@@ -26,4 +26,22 @@ module.exports = {
       });
     }
   },
+  async deleteMachine(req, res) {
+    try {
+      const { name } = req.body;
+      const machine = await Machine.findOne({
+        where: {
+          name: name,
+        },
+      });
+      machine.destroy();
+      res.send({
+        message: ['The machine', name, 'has been deleted.'].join(' '),
+      });
+    } catch (err) {
+      res.status(500).send({
+        error: 'An error has occured during machine deletion.',
+      });
+    }
+  },
 };

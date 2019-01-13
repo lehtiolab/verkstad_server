@@ -47,6 +47,10 @@ module.exports = (app) => {
     MachineController.add
   );
 
+  app.post('/deletemachine',
+    MachineController.deleteMachine
+  );
+
   app.get('/tasks',
     TaskController.index
   );
