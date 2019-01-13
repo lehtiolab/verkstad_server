@@ -69,4 +69,22 @@ module.exports = {
       });
     }
   },
+  async deleteUser(req, res) {
+    try {
+      const { email } = req.body;
+      const user = await User.findOne({
+        where: {
+          email: email,
+        },
+      });
+      user.destroy();
+      res.send({
+        message: 'User deleted',
+      });
+    } catch (err) {
+      res.status(500).send({
+        error: 'An error has occured during user deletion.',
+      });
+    }
+  },
 };

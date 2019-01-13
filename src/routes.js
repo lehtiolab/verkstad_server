@@ -35,6 +35,10 @@ module.exports = (app) => {
     AuthenticationController.index
   );
 
+  app.post('/deleteuser',
+    AuthenticationController.deleteUser
+  );
+
   app.get('/machines',
     MachineController.index
   );
