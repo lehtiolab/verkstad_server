@@ -32,9 +32,28 @@ module.exports = {
       });
       res.send(tasks);
     } catch (err) {
-      console.log(err);
       res.status(500).send({
         error: 'An error has occured trying to fetch the tasks.',
+      });
+    }
+  },
+  async task(req, res) {
+    try {
+      const task = await Task.findOne({
+        where: {
+          id: req.params.taskId,
+        },
+        include: [
+          {
+            model: Machine,
+            as: 'machines',
+          },
+        ],
+      });
+      res.send(task);
+    } catch (err) {
+      res.status(500).send({
+        error: 'An error has occured trying to fetch a task.',
       });
     }
   },

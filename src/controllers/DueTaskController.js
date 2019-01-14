@@ -1,4 +1,4 @@
-const { Log, Task } = require('../models');
+const { Log, Task, Machine } = require('../models');
 
 function addDaysToDate(date, days) {
   let result = new Date(date);
@@ -6,11 +6,21 @@ function addDaysToDate(date, days) {
   return result;
 }
 
+function getDayDiff(date) {
+  return (new Date - date) / (1000 * 60 * 60 * 24);
+}
+
 module.exports = {
   async index(req, res) {
     try {
       const tasks = await Task.findAll({
         limit: 50,
+        include: [
+          {
+            model: Machine,
+            as: 'machines',
+          },
+        ],
       });
 
       const dueTasks = await Promise.all(tasks.map(async element => {
@@ -25,21 +35,27 @@ module.exports = {
         });
 
         // if not in the logbook, take the start date as calculation base
+        let interval = 0;
         if (lastTaskDate.length === 0) {
           lastTaskDate = element.startDate;
+        } else {
+          interval = element.interval;
+        }
+
+        // calculate due date
+        const dueTaskDate = addDaysToDate(lastTaskDate, interval);
+
+        const response = {
+          task: element,
+          nextDate: dueTaskDate,
+          dayDiff: getDayDiff(dueTaskDate),
         }
         
-        // add the interval to the date
-        const dueTaskDate = addDaysToDate(lastTaskDate, element.interval);
-
-        return {
-          ...element,
-          dueTaskDate,
-        }
+        return response;
       }));
 
       res.send({
-        dueTasks: dueTasks.toJSON(),
+        dueTasks: dueTasks,
       });
     } catch (err) {
       res.status(500).send({

@@ -55,6 +55,10 @@ module.exports = (app) => {
     TaskController.index
   );
 
+  app.get('/task/:taskId',
+    TaskController.task
+  );
+
   app.post('/addtask',
     TaskController.add
   );
