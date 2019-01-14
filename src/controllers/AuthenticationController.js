@@ -30,13 +30,13 @@ module.exports = {
           email: email,
         },
       });
-      // console.log(user);
+      
       if (!user) {
         return res.status(403).send({
           error: 'The login was not successful.',
         });
       }
-      
+
       const isPasswordValid = await user.comparePassword(password);
       
       if (!isPasswordValid) {
@@ -45,10 +45,12 @@ module.exports = {
         });
       }
 
-      const userJson = user.toJSON();
       res.send({
-        user: userJson,
-        token: jwtSignUser(userJson),
+        user: {
+          name: user.name,
+          email: user.email,
+          token: jwtSignUser(user.toJSON()),
+        },
       });
     } catch (err) {
       res.status(500).send({
