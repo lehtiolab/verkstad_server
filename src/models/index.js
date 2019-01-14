@@ -15,7 +15,7 @@ const sequelize = new Sequelize(
 fs
   .readdirSync(__dirname)
   .filter((file) =>
-    file !== 'index.js'
+    file !== 'index.js' && file !== 'associations.js'
   )
   .forEach((file) => {
     const model = sequelize.import(path.join(__dirname, file));
@@ -24,5 +24,7 @@ fs
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
+
+require('./associations')(db);
 
 module.exports = db;

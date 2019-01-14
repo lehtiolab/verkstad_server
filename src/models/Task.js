@@ -7,9 +7,6 @@ module.exports = (sequelize, DataTypes) => {
     description: {
       type: DataTypes.STRING,
     },
-    machine_id: {
-      type: DataTypes.INTEGER,
-    },
     repare: {
       type: DataTypes.STRING,
     },

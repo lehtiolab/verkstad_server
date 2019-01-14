@@ -69,7 +69,7 @@ module.exports = {
       });
     }
   },
-  async deleteUser(req, res) {
+  async delete(req, res) {
     try {
       const { email } = req.body;
       const user = await User.findOne({

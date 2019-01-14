@@ -16,7 +16,6 @@ module.exports = {
   async index(req, res) {
     try {
       const machines = await Machine.findAll({
-        attributes: ['id', 'name', 'type', 'createdAt'],
         limit: 30,
       });
       res.send(machines);
@@ -26,7 +25,7 @@ module.exports = {
       });
     }
   },
-  async deleteMachine(req, res) {
+  async delete(req, res) {
     try {
       const { name } = req.body;
       const machine = await Machine.findOne({

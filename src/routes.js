@@ -36,7 +36,7 @@ module.exports = (app) => {
   );
 
   app.post('/deleteuser',
-    AuthenticationController.deleteUser
+    AuthenticationController.delete
   );
 
   app.get('/machines',
@@ -48,7 +48,7 @@ module.exports = (app) => {
   );
 
   app.post('/deletemachine',
-    MachineController.deleteMachine
+    MachineController.delete
   );
 
   app.get('/tasks',
@@ -57,5 +57,9 @@ module.exports = (app) => {
 
   app.post('/addtask',
     TaskController.add
+  );
+
+  app.post('/deletetask',
+    TaskController.delete
   );
 };
