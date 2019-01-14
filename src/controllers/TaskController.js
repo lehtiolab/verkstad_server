@@ -1,17 +1,17 @@
-const { Task, User, Machine } = require('../models');
+const { Task, User, Machine, MachineTask } = require('../models');
 
 module.exports = {
   async add(req, res) {
     try {
-      const task = await Task.create(req.body);
-      const machines = await Machine.findAll({
-        where: {
-          id: req.body.machineIds,
-        },
-      });
-      task.setMachines(machines);
+      const task = await Task.create(req.body.task);
+      const machineTasks = Promise.all(req.body.machineIds.map(async machineId => {
+        return await MachineTask.create({
+          taskId: task.id,
+          machineId: machineId,
+        });
+      }));
       res.send({
-        task: task.toJSON(),
+        machineTasks: machineTasks,
       });
     } catch (err) {
       res.status(400).send({
@@ -22,13 +22,7 @@ module.exports = {
   async index(req, res) {
     try {
       const tasks = await Task.findAll({
-        limit: 50,
-        include: [
-          {
-            model: Machine,
-            as: 'machines',
-          },
-        ],
+        limit: 100,
       });
       res.send(tasks);
     } catch (err) {
@@ -43,12 +37,6 @@ module.exports = {
         where: {
           id: req.params.taskId,
         },
-        include: [
-          {
-            model: Machine,
-            as: 'machines',
-          },
-        ],
       });
       res.send(task);
     } catch (err) {

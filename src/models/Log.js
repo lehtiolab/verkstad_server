@@ -1,12 +1,9 @@
 module.exports = (sequelize, DataTypes) => {
   const Log = sequelize.define('Log', {
-    user_id: {
-      type: DataTypes.INTEGER,
+    doneDate: {
+      type: DataTypes.DATEONLY,
     },
-    task_id: {
-      type: DataTypes.INTEGER,
-    },
-    notes: {
+    comment: {
       type: DataTypes.STRING,
     },
   });
