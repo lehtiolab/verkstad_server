@@ -61,7 +61,7 @@ module.exports = {
   async index(req, res) {
     try {
       const users = await User.findAll({
-        attributes: ['name', 'email', 'createdAt'],
+        attributes: ['id', 'name', 'email', 'createdAt'],
         limit: 30,
       });
       res.send(users);
@@ -73,17 +73,19 @@ module.exports = {
   },
   async delete(req, res) {
     try {
-      const { email } = req.body;
       const user = await User.findOne({
         where: {
-          email: email,
+          id: req.params.userId,
         },
       });
+
       user.destroy();
+
       res.send({
         message: 'User deleted',
       });
     } catch (err) {
+      console.log(err);
       res.status(500).send({
         error: 'An error has occured during user deletion.',
       });

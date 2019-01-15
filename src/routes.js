@@ -35,7 +35,7 @@ module.exports = (app) => {
     AuthenticationController.index
   );
 
-  app.post('/deleteuser',
+  app.delete('/deleteuser/:userId',
     AuthenticationController.delete
   );
 
@@ -47,7 +47,7 @@ module.exports = (app) => {
     MachineController.add
   );
 
-  app.post('/deletemachine',
+  app.delete('/deletemachine/:machineId',
     MachineController.delete
   );
 
@@ -63,7 +63,7 @@ module.exports = (app) => {
     TaskController.add
   );
 
-  app.post('/deletetask',
+  app.delete('/deletetask/:taskId',
     TaskController.delete
   );
 };

@@ -1,4 +1,4 @@
-const { Task, User, Machine, MachineTask } = require('../models');
+const { Task, MachineTask } = require('../models');
 
 module.exports = {
   async add(req, res) {
@@ -47,16 +47,25 @@ module.exports = {
   },
   async delete(req, res) {
     try {
-      const { id, name } = req.body;
       const task = await Task.findOne({
         where: {
-          id: id,
-          name: name,
+          id: req.params.taskId,
         },
       });
+
+      const machineTasks = await MachineTask.findAll({
+        where: {
+          taskId: req.params.taskId,
+        },
+      });
+      
+      machineTasks.forEach(machineTask => {
+        machineTask.destroy();
+      });
       task.destroy();
+
       res.send({
-        message: ['The task', name, 'with id', id, 'has been deleted.'].join(' '),
+        message: 'Task deleted.',
       });
     } catch (err) {
       res.status(500).send({
