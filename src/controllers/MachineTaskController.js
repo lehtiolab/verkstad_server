@@ -13,7 +13,8 @@ function getDayDiff(date) {
 module.exports = {
   async index(req, res) {
     try {
-      const tasks = await MachineTask.findAll({
+      // collect all the MachineTasks available
+      const machineTasks = await MachineTask.findAll({
         limit: 100,
         include: [
           {
@@ -25,19 +26,39 @@ module.exports = {
         ],
       });
       
-      // search in log for every id
-      // not found: use start date from Task table directly
-      // found: use last execution date from log
+      // go to the log and find the MachineTask id there
+      const dueMachineTasks = await Promise.all(machineTasks.map(async machineTask => {
+        let lastMachineTaskDate = await Log.findAll({
+          limit: 1,
+          where: {
+            machineTaskId: machineTask.id,
+          },
+          order: [[ 'doneDate', 'DESC' ]],
+          attributes: ['doneDate'],
+        });
 
-      // modify this!
-      const response = {
-        task: element,
-        nextDate: dueTaskDate,
-        dayDiff: getDayDiff(dueTaskDate),
-      }
+        let interval = 0;
+        if (lastMachineTaskDate.length === 0) {
+          // there is no entry in the log
+          lastMachineTaskDate = machineTask.Task.startDate;
+        } else {
+          // it is in the logs, get interval to calculate next date
+          interval = machineTask.Task.interval;
+        }
+
+        const dueMachineTaskDate = addDaysToDate(lastMachineTaskDate, interval);
+
+        const response = {
+          machineTask: machineTask,
+          nextDate: dueMachineTaskDate,
+          dayDiff: getDayDiff(dueMachineTaskDate),
+        }
+
+        return response;
+      }));
 
       res.send({
-        dueTasks: dueTasks,
+        machineTasks: dueMachineTasks,
       });
     } catch (err) {
       console.log(err);
