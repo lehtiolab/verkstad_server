@@ -1,7 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
   const Log = sequelize.define('Log', {
-    doneDate: {
-      type: DataTypes.DATE,
+    mode: {
+      type: DataTypes.STRING,
     },
     comment: {
       type: DataTypes.STRING,

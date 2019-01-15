@@ -1,4 +1,4 @@
-const { Log } = require('../models');
+const { Log, MachineTask, User, Machine, Task } = require('../models');
 
 module.exports = {
   async add(req, res) {
@@ -10,16 +10,33 @@ module.exports = {
     } catch (err) {
       res.status(400).send({
         error: 'The log could not be created.',
-      })
+      });
     }
   },
   async index(req, res) {
     try {
       const logs = await Log.findAll({
-        limit: 50,
+        limit: 100,
+        include: [
+          {
+            model: MachineTask,
+            include: [
+              {
+                model: Machine,
+              },
+              {
+                model: Task,
+              },
+            ],
+          },
+          {
+            model: User,
+          },
+        ],
       });
       res.send(logs);
     } catch (err) {
+      console.log(err);
       res.status(500).send({
         error: 'An error has occured trying to fetch the logbook.',
       });

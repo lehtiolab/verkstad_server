@@ -11,6 +11,30 @@ function getDayDiff(date) {
 }
 
 module.exports = {
+  async machineTask(req, res) {
+    try {
+      const machineTask = await MachineTask.findOne({
+        where: {
+          id: req.params.machineTaskId,
+        },
+        include: [
+          {
+            model: Task,
+          },
+          {
+            model: Machine,
+          },
+        ],
+      });
+      res.send({
+        machineTask: machineTask,
+      });
+    } catch (err) {
+      res.status(500).send({
+        error: 'Error while fetching a MachineTask.',
+      });
+    }
+  },
   async index(req, res) {
     try {
       // collect all the MachineTasks available
@@ -33,10 +57,10 @@ module.exports = {
           where: {
             machineTaskId: machineTask.id,
           },
-          order: [[ 'doneDate', 'DESC' ]],
-          attributes: ['doneDate'],
+          order: [[ 'createdAt', 'DESC' ]],
+          attributes: ['createdAt'],
         });
-
+        
         let interval = 0;
         if (lastMachineTaskDate.length === 0) {
           // there is no entry in the log
@@ -44,6 +68,7 @@ module.exports = {
         } else {
           // it is in the logs, get interval to calculate next date
           interval = machineTask.Task.interval;
+          lastMachineTaskDate = lastMachineTaskDate[0].createdAt;
         }
 
         const dueMachineTaskDate = addDaysToDate(lastMachineTaskDate, interval);

@@ -10,8 +10,12 @@ const MachineController = require('./controllers/MachineController');
 const TaskController = require('./controllers/TaskController');
 
 module.exports = (app) => {
-  app.get('/duemachinetasks',
+  app.get('/machinetasks',
     MachineTaskController.index
+  );
+
+  app.get('/machinetask/:machineTaskId',
+    MachineTaskController.machineTask
   );
 
   app.get('/logbook',
