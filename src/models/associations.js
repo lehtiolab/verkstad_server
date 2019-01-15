@@ -1,20 +1,26 @@
 module.exports = (db) => {
   const { Task, Machine, MachineTask, User, Log } = db.sequelize.models;
 
-  Machine.hasMany(MachineTask, {
+  // Machine.hasMany(MachineTask, {
+  //   foreignKey: 'machineId',
+  // });
+  MachineTask.belongsTo(Machine, {
     foreignKey: 'machineId',
   });
-  MachineTask.belongsTo(Machine);
 
-  Task.hasMany(MachineTask, {
+  // Task.hasMany(MachineTask, {
+  //   foreignKey: 'taskId',
+  // });
+  MachineTask.belongsTo(Task, {
     foreignKey: 'taskId',
   });
-  MachineTask.belongsTo(Task);
 
-  MachineTask.hasMany(Log, {
+  // MachineTask.hasMany(Log, {
+  //   foreignKey: 'machineTaskId',
+  // });
+  Log.belongsTo(MachineTask, {
     foreignKey: 'machineTaskId',
   });
-  Log.belongsTo(MachineTask);
 
   User.hasMany(Log, {
     foreignKey: 'userId',

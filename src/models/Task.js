@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
     },
     startDate: {
-      type: DataTypes.DATEONLY
+      type: DataTypes.DATE
     },
     interval: {
       type: DataTypes.TIME,
