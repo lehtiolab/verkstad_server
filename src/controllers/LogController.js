@@ -3,11 +3,42 @@ const { Log, MachineTask, User, Machine, Task } = require('../models');
 module.exports = {
   async add(req, res) {
     try {
-      const data = {
-        ...req.body,
-        userId: req.user.id,
-      };
-      const log = await Log.create(data);
+      const user = await User.findOne({
+        where: {
+          id: req.user.id,
+        },
+      });
+
+      const machineTask = await MachineTask.findOne({
+        where: {
+          id: req.body.machineTaskId,
+        },
+        include: [
+          {
+            model: Task,
+          },
+          {
+            model: Machine,
+          },
+        ],
+      });
+
+      const log = await Log.create({
+        status: req.body.status,
+        task: machineTask.Task.name,
+        description: machineTask.Task.description,
+        repare: machineTask.Task.repare,
+        machine: machineTask.Machine.name,
+        interval: machineTask.Task.interval,
+        user: user.name,
+        comment: req.body.comment,
+      });
+
+      // add the done date to MachineTask
+      machineTask.update({
+        done: new Date(),
+      });
+      
       res.send({
         log: log.toJSON(),
       });
@@ -40,36 +71,9 @@ module.exports = {
     try {
       const logs = await Log.findAll({
         limit: 100,
-        include: [
-          {
-            model: MachineTask,
-            include: [
-              {
-                model: Machine,
-              },
-              {
-                model: Task,
-              },
-            ],
-          },
-          {
-            model: User,
-          },
-        ],
       });
 
-      const response = logs.map(log => ({
-        id: log.id,
-        taskName: log.MachineTask ? (log.MachineTask.Task.name 
-          ? log.MachineTask.Task.name : 'deleted') : 'deleted',
-        createdAt: log.createdAt,
-        machineName: log.MachineTask ? (log.MachineTask.Machine.name 
-          ? log.MachineTask.Machine.name : 'deleted') : 'deleted',
-        mode: log.mode,
-        userName: log.User ? log.User.name : 'deleted',
-      }));
-
-      res.send(response);
+      res.send(logs);
     } catch (err) {
       res.status(500).send({
         error: 'An error has occured trying to fetch the logbook.',
@@ -82,23 +86,8 @@ module.exports = {
         where: {
           id: req.params.logId,
         },
-        include: [
-          {
-            model: MachineTask,
-            include: [
-              {
-                model: Machine,
-              },
-              {
-                model: Task,
-              },
-            ],
-          },
-          {
-            model: User,
-          },
-        ],
       });
+
       res.send(log);
     } catch (err) {
       res.status(500).send({

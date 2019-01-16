@@ -13,14 +13,6 @@ module.exports = (db) => {
     foreignKey: 'taskId',
   });
 
-  Log.belongsTo(MachineTask, {
-    foreignKey: 'machineTaskId',
-  });
-
-  Log.belongsTo(User, {
-    foreignKey: 'userId',
-  });
-
   Machine.belongsTo(User, {
     foreignKey: 'userId',
   });

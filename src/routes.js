@@ -88,6 +88,11 @@ module.exports = (app) => {
     TaskController.add
   );
 
+  app.put('/updatetask/:taskId',
+    isAuthenticated,
+    TaskController.update
+  );
+
   app.delete('/deletetask/:taskId',
     isAuthenticated,
     TaskController.delete

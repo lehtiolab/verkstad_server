@@ -23,6 +23,63 @@ module.exports = {
       })
     }
   },
+  async update(req, res) {
+    try {
+      const data = {
+        ...req.body.task,
+        userId: req.user.id,
+      };
+
+      await Task.update(data, {
+        where: {
+          id: req.params.taskId,
+        },
+      });
+
+      const machineTasks = await MachineTask.findAll({
+        where: {
+          taskId: req.params.taskId,
+        },
+        include: [
+          {
+            model: Machine,
+          },
+        ],
+      });
+
+      // get machineIds that are not any more belonging to the task
+      const machineIds = machineTasks.map(machineTask => machineTask.Machine.id);
+      const machineIdsToDelete = machineIds.filter(machineId => {
+        return !req.body.machineIds.includes(machineId);
+      });
+
+      await MachineTask.destroy({
+        where: {
+          taskId: req.params.taskId,
+          machineId: machineIdsToDelete,
+        }
+      });
+
+      const machineIdsToCreate = req.body.machineIds.filter(machineId => {
+        return !machineIds.includes(machineId);
+      });
+      Promise.all(machineIdsToCreate.forEach(async machineId => {
+        await MachineTask.create({
+          taskId: req.params.taskId,
+          machineId: machineId,
+        });
+      }));
+
+      res.send({
+        message: 'Task update successful.',
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(400).send({
+        error: 'Error during task manipulation.',
+      })
+    }
+  },
   async index(req, res) {
     try {
       const tasks = await Task.findAll({

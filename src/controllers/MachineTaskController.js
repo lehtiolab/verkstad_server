@@ -50,25 +50,14 @@ module.exports = {
         ],
       });
       
-      // go to the log and find the MachineTask id there
       const dueMachineTasks = await Promise.all(machineTasks.map(async machineTask => {
-        let lastMachineTaskDate = await Log.findAll({
-          limit: 1,
-          where: {
-            machineTaskId: machineTask.id,
-          },
-          order: [[ 'createdAt', 'DESC' ]],
-          attributes: ['createdAt'],
-        });
+        // for each machineTask
+        let lastMachineTaskDate = machineTask.done;
+        let interval = machineTask.Task.interval;
         
-        let interval = 0;
-        if (lastMachineTaskDate.length === 0) {
-          // there is no entry in the log
+        if (!lastMachineTaskDate) {
           lastMachineTaskDate = machineTask.Task.startDate;
-        } else {
-          // it is in the logs, get interval to calculate next date
-          interval = machineTask.Task.interval;
-          lastMachineTaskDate = new Date(lastMachineTaskDate[0].createdAt.setHours(23, 59, 0, 0));
+          interval = 0;
         }
 
         const dueMachineTaskDate = addDaysToDate(lastMachineTaskDate, interval);
@@ -86,6 +75,7 @@ module.exports = {
         machineTasks: dueMachineTasks,
       });
     } catch (err) {
+      console.log(err);
       res.status(500).send({
         error: 'An error has occured trying to predict and fetch the coming tasks.',
       });
