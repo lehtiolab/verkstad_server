@@ -9,6 +9,10 @@ module.exports = (db) => {
     foreignKey: 'taskId',
   });
 
+  Task.hasMany(MachineTask, {
+    foreignKey: 'taskId',
+  });
+
   Log.belongsTo(MachineTask, {
     foreignKey: 'machineTaskId',
   });
@@ -17,11 +21,11 @@ module.exports = (db) => {
     foreignKey: 'userId',
   });
 
-  User.hasMany(Machine, {
+  Machine.belongsTo(User, {
     foreignKey: 'userId',
   });
 
-  User.hasMany(Task, {
+  Task.belongsTo(User, {
     foreignKey: 'userId',
   });
 }

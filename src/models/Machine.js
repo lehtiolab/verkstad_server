@@ -7,6 +7,9 @@ module.exports = (sequelize, DataTypes) => {
     type: {
       type: DataTypes.STRING,
     },
+    kanteleId: {
+      type: DataTypes.STRING,
+    },
   });
 
   return Machine;

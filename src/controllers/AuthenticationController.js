@@ -49,8 +49,8 @@ module.exports = {
         user: {
           name: user.name,
           email: user.email,
-          token: jwtSignUser(user.toJSON()),
         },
+        token: jwtSignUser(user.toJSON()),
       });
     } catch (err) {
       res.status(500).send({
@@ -85,7 +85,6 @@ module.exports = {
         message: 'User deleted',
       });
     } catch (err) {
-      console.log(err);
       res.status(500).send({
         error: 'An error has occured during user deletion.',
       });

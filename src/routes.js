@@ -9,6 +9,8 @@ const MachineController = require('./controllers/MachineController');
 
 const TaskController = require('./controllers/TaskController');
 
+const isAuthenticated = require('./policies/isAuthenticated');
+
 module.exports = (app) => {
   app.get('/machinetasks',
     MachineTaskController.index
@@ -23,7 +25,18 @@ module.exports = (app) => {
   );
   
   app.post('/addlog',
+    isAuthenticated,
     LogController.add
+  );
+
+  app.delete('/deletelog/:logId',
+    isAuthenticated,
+    LogController.delete
+  );
+
+  app.get('/log/:logId',
+    isAuthenticated,
+    LogController.log
   );
 
   app.post('/signup', 
@@ -40,6 +53,7 @@ module.exports = (app) => {
   );
 
   app.delete('/deleteuser/:userId',
+    isAuthenticated,
     AuthenticationController.delete
   );
 
@@ -47,11 +61,17 @@ module.exports = (app) => {
     MachineController.index
   );
 
+  app.get('/machine/:machineId',
+    MachineController.machine
+  );
+
   app.post('/addmachine',
+    isAuthenticated,
     MachineController.add
   );
 
   app.delete('/deletemachine/:machineId',
+    isAuthenticated,
     MachineController.delete
   );
 
@@ -64,10 +84,12 @@ module.exports = (app) => {
   );
 
   app.post('/addtask',
+    isAuthenticated,
     TaskController.add
   );
 
   app.delete('/deletetask/:taskId',
+    isAuthenticated,
     TaskController.delete
   );
 };

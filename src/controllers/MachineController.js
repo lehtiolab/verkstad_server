@@ -1,9 +1,13 @@
-const { Machine, MachineTask } = require('../models');
+const { Machine, MachineTask, User } = require('../models');
 
 module.exports = {
   async add(req, res) {
     try {
-      const machine = await Machine.create(req.body);
+      const data = {
+        ...req.body,
+        userId: req.user.id,
+      }
+      const machine = await Machine.create(data);
       res.send({
         machine: machine.toJSON(),
       });
@@ -17,11 +21,30 @@ module.exports = {
     try {
       const machines = await Machine.findAll({
         limit: 30,
+        include: [
+          {
+            model: User,
+          },
+        ],
       });
       res.send(machines);
     } catch (err) {
       res.status(500).send({
         error: 'An error has occured trying to fetch the machines.',
+      });
+    }
+  },
+  async machine(req, res) {
+    try {
+      const machine = await Machine.findOne({
+        where: {
+          id: req.params.machineId,
+        },
+      });
+      res.send(machine);
+    } catch (err) {
+      res.status(500).send({
+        error: 'An error has occured trying to fetch a machine.',
       });
     }
   },

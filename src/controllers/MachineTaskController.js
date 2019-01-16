@@ -68,7 +68,7 @@ module.exports = {
         } else {
           // it is in the logs, get interval to calculate next date
           interval = machineTask.Task.interval;
-          lastMachineTaskDate = lastMachineTaskDate[0].createdAt;
+          lastMachineTaskDate = new Date(lastMachineTaskDate[0].createdAt.setHours(23, 59, 0, 0));
         }
 
         const dueMachineTaskDate = addDaysToDate(lastMachineTaskDate, interval);
@@ -86,7 +86,6 @@ module.exports = {
         machineTasks: dueMachineTasks,
       });
     } catch (err) {
-      console.log(err);
       res.status(500).send({
         error: 'An error has occured trying to predict and fetch the coming tasks.',
       });
