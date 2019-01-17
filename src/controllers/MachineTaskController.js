@@ -60,7 +60,10 @@ module.exports = {
           interval = 0;
         }
 
-        const dueMachineTaskDate = addDaysToDate(lastMachineTaskDate, interval);
+        const dueMachineTaskDate = addDaysToDate(
+          lastMachineTaskDate.setHours(23, 59, 0, 0),
+          interval
+        );
 
         const response = {
           machineTask: machineTask,

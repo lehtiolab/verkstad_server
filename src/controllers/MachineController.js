@@ -13,8 +13,28 @@ module.exports = {
       });
     } catch (err) {
       res.status(400).send({
-        error: 'The machine name is already in the database.',
-      })
+        error: 'Error during machine creation.',
+      });
+    }
+  },
+  async update(req, res) {
+    try {
+      const data = {
+        ...req.body,
+        userId: req.user.id,
+      }
+      await Machine.update(data, {
+        where: {
+          id: req.params.machineId,
+        }
+      });
+      res.send({
+        message: 'Update successful.',
+      });
+    } catch (err) {
+      res.status(400).send({
+        error: 'Error during machine update.',
+      });
     }
   },
   async index(req, res) {

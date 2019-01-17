@@ -70,6 +70,11 @@ module.exports = (app) => {
     MachineController.add
   );
 
+  app.put('/updatemachine/:machineId',
+    isAuthenticated,
+    MachineController.update
+  );
+
   app.delete('/deletemachine/:machineId',
     isAuthenticated,
     MachineController.delete
