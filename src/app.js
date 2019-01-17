@@ -3,13 +3,17 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const morgan = require('morgan');
+const compression = require('compression');
+const helmet = require('helmet');
 
 const { sequelize } = require('./models');
 
 const app = express();
-app.use(morgan('combined'));
+app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(cors());
+app.use(compression());
+app.use(helmet());
 
 require('./passport');
 
