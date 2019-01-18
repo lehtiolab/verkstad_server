@@ -60,10 +60,19 @@ module.exports = {
           interval = 0;
         }
 
-        const dueMachineTaskDate = addDaysToDate(
+        let dueMachineTaskDate = addDaysToDate(
           lastMachineTaskDate.setHours(23, 59, 0, 0),
           interval
         );
+
+        // check if the due date is during weekend and postpone task
+        if (dueMachineTaskDate.getDay() === 0) {
+          // Sunday
+          dueMachineTaskDate = addDaysToDate(dueMachineTaskDate, 1);
+        } else if (dueMachineTaskDate.getDay() === 6) {
+          // Saturday
+          dueMachineTaskDate = addDaysToDate(dueMachineTaskDate, 2);
+        }
 
         const response = {
           machineTask: machineTask,
