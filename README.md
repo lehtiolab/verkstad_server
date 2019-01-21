@@ -20,4 +20,5 @@ The app itself is dockerized and can easily be run on any server setup.
 
 ## Can I also use it?
 Sure! Just clone the repo to your server, build the docker image and start it
-according to `.rundocker`.
+according to `.rundocker`. Then you can design your own fronend or use
+[this one](https://github.com/mtstahl/client_mstodos).
