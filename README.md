@@ -17,3 +17,7 @@ The data is kept in a sqlite database.
 ![DB layout](https://raw.githubusercontent.com/mtstahl/server_mstodos/master/db_layout.png)
 
 The app itself is dockerized and can easily be run on any server setup.
+
+## Can I also use it?
+Sure! Just clone the repo to your server, build the docker image and start it
+according to `.rundocker`.
