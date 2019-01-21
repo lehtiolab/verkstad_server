@@ -5,9 +5,9 @@ module.exports = {
     user: process.env.DB_USER || 'root',
     password: process.env.DB_PASS || 'root',
     options: {
-      dialect: process.env.DIALECT || 'sqlite',
+      dialect: process.env.DB_DIALECT || 'sqlite',
       host: process.env.HOST || 'localhost',
-      storage: './mstodos.sqlite',
+      storage: process.env.DB_STORAGE || './mstodos.sqlite',
     },
   },
   authentication: {

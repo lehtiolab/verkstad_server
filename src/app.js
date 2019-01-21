@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const config = require('./config/config');
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -9,7 +11,12 @@ const helmet = require('helmet');
 const { sequelize } = require('./models');
 
 const app = express();
-app.use(morgan('dev'));
+
+process.on('SIGINT', function() {
+  process.exit();
+});
+
+app.use(morgan('combined'));
 app.use(bodyParser.json());
 app.use(cors());
 app.use(compression());
