@@ -5,6 +5,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const morgan = require('morgan');
+const fs = require('fs');
 const compression = require('compression');
 const helmet = require('helmet');
 
@@ -16,7 +17,11 @@ process.on('SIGINT', function() {
   process.exit();
 });
 
-app.use(morgan('combined'));
+const accessLogStream = fs.createWriteStream(__dirname + '/log/' + "access.log", {flags: 'a'});
+app.use(morgan('combined', {
+  stream: accessLogStream,
+}));
+
 app.use(bodyParser.json());
 app.use(cors());
 app.use(compression());

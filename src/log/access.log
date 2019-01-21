@@ -1,0 +1,6 @@
+::1 - - [21/Jan/2019:13:00:53 +0000] "OPTIONS /logbook HTTP/1.1" 204 0 "http://localhost:8080/logbook" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
+::1 - - [21/Jan/2019:13:00:53 +0000] "GET /logbook HTTP/1.1" 200 - "http://localhost:8080/logbook" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
+::1 - - [21/Jan/2019:13:00:54 +0000] "OPTIONS /tasks HTTP/1.1" 204 0 "http://localhost:8080/tasks" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
+::1 - - [21/Jan/2019:13:00:54 +0000] "GET /tasks HTTP/1.1" 200 - "http://localhost:8080/tasks" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
+::1 - - [21/Jan/2019:13:00:55 +0000] "GET /logbook HTTP/1.1" 304 - "http://localhost:8080/logbook" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
+::1 - - [21/Jan/2019:13:00:57 +0000] "GET /logbook HTTP/1.1" 304 - "http://localhost:8080/logbook" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
