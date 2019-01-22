@@ -22,3 +22,18 @@ The app itself is dockerized and can easily be run on any server setup.
 Sure! Just clone the repo to your server, build the docker image and start it
 according to `rundocker.sh`. Then you can design your own fronend or use
 [this one](https://github.com/mtstahl/client_mstodos).
+
+Of course zou can also directly use the docker image from the
+[public repository](https://hub.docker.com). Just execute 
+```bash
+docker run -it 
+           -v "$(pwd)"/docker_volume/db:/app/db # adjust for location of db file
+           -v "$(pwd)"/docker_volume/log:/app/log # adjust for location of log file
+           -p 8081:8081 # adjust exposing port (first one)
+           -e NODE_ENV='production' 
+           -e BASE_URL='mozzarella.scilifelab.se' # adjust for hosting domain
+           matthiasstahl/verkstad_server
+```
+on your server. The `-v` arguments are optional and allow you to store the sqlite
+database somewhere else on your server. The same is true for the location of
+the log file.
