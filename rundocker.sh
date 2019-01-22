@@ -9,7 +9,7 @@ docker push matthiasstahl/verkstad_server
 docker run -it 
            -v "$(pwd)"/docker_volume/db:/app/db # adjust for location of db file
            -v "$(pwd)"/docker_volume/log:/app/log # adjust for location of log file
-           -p 8081:8081 
+           -p 8081:8081 # adjust exposing port (first one)
            -e NODE_ENV='production' 
            -e BASE_URL='mozzarella.scilifelab.se' # adjust for hosting domain
            matthiasstahl/verkstad_server
