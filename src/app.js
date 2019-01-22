@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv').config();
 
 const config = require('./config/config');
 const express = require('express');
@@ -17,7 +17,7 @@ process.on('SIGINT', function() {
   process.exit();
 });
 
-const accessLogStream = fs.createWriteStream(__dirname + '/log/' + "access.log", {flags: 'a'});
+const accessLogStream = fs.createWriteStream(config.log.path + "/access.log", {flags: 'a'});
 app.use(morgan('combined', {
   stream: accessLogStream,
 }));

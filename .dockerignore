@@ -1,5 +1,8 @@
+.env
 node_modules
 npm-debug.log
 docker_volume
-.rundocker
-db
+rundocker.sh
+dblayout.*
+src/log/*
+src/db/*
