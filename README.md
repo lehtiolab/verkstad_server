@@ -36,3 +36,15 @@ docker run -it # for interactive session
 on your server. The `-v` arguments are optional and allow you to store the sqlite
 database somewhere else on your server. The same is true for the location of
 the log file.
+
+## Deploy the full Verkstad bundle on a webserver
+* Server (this repo)
+  1. Find place for sqlite file and log file.
+  2. Create `.env` file to hold the environment variables.
+  3. Run `docker` image with `.env` file and mapped volumes forever (add cronjob).
+  4. Configure ports and redirection.
+* Client ([other repo](https://github.com/mtstahl/verkstad_client))
+  1. Find place to store `index.html` and `js` as well as
+    `css` files from the `dist` folder.
+  2. Configure ports and redirection.
+  
