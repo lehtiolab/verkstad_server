@@ -26,7 +26,7 @@ according to `rundocker.sh`. Then you can design your own fronend or use
 Of course zou can also directly use the docker image from the
 [public repository](https://hub.docker.com). Just execute 
 ```bash
-docker run -it 
+docker run -it # for interactive session
            -v "$(pwd)"/docker_volume/db:/app/db # adjust for location of db file
            -v "$(pwd)"/docker_volume/log:/app/log # adjust for location of log file
            -p 8081:8081 # adjust exposing port (first one)
