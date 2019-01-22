@@ -1,7 +1,7 @@
 {
-  "name": "server_mstodos",
+  "name": "verkstad_server",
   "version": "0.1.0",
-  "description": "Backend for mstodos.",
+  "description": "Backend for Verkstad mass spec maintenance app.",
   "main": "app.js",
   "scripts": {
     "dev": "nodemon src/app.js",
