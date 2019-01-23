@@ -18,6 +18,10 @@ The data is kept in a sqlite database.
 
 The app itself is dockerized and can easily be run on any server setup.
 
+Curious about `kanteleId`? Watch out for new developments and the awesome
+[Kantele platform](https://github.com/glormph/kantele) by
+[@glormph](https://github.com/glormph).
+
 ## Can I also use it?
 Sure! Just clone the repo to your server, build the docker image and start it
 according to `rundocker.sh`. Then you can design your own fronend or use
