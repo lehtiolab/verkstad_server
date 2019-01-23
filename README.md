@@ -24,7 +24,7 @@ Curious about `kanteleId`? Watch out for new developments and the awesome
 
 ## Can I also use it?
 Sure! Just clone the repo to your server, build the docker image and start it
-according to `rundocker.sh`. Then you can design your own fronend or use
+according to `rundocker.sh`. Then you can design your own frontend or use
 [this one](https://github.com/mtstahl/verkstad_client).
 
 Of course zou can also directly use the docker image from the
