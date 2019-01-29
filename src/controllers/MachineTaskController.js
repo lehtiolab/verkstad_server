@@ -39,7 +39,7 @@ module.exports = {
     try {
       // collect all the MachineTasks available
       const machineTasks = await MachineTask.findAll({
-        limit: 100,
+        limit: 1000,
         include: [
           {
             model: Task,
