@@ -70,7 +70,10 @@ module.exports = {
   async index(req, res) {
     try {
       const logs = await Log.findAll({
-        limit: 100,
+        order: [
+          ['createdAt', 'DESC'],
+        ],
+        limit: 200,
       });
 
       res.send(logs);
