@@ -3,7 +3,7 @@
 ## What does this piece of software do?
 
 This is a dockerized node.js app, which serves a
-[simple todo app](https://github.com/mtstahl/verkstad_client). This app
+[simple todo app](https://github.com/higsch/verkstad_client). This app
 is intended to organize tasks for the maintenance of a
 [modern proteomics mass spectrometer](https://en.wikipedia.org/wiki/Mass_spectrometry).
 
@@ -14,7 +14,7 @@ maintenance was developed and is now applied in the [Lehtiö laboratory](http://
 
 The server app receives user requests to show or register predefined tasks.
 The data is kept in a sqlite database.
-![DB layout](https://raw.githubusercontent.com/mtstahl/verkstad_server/master/db_layout.png)
+![DB layout](https://raw.githubusercontent.com/higsch/verkstad_server/master/db_layout.png)
 
 The app itself is dockerized and can easily be run on any server setup.
 
@@ -25,7 +25,7 @@ Curious about `kanteleId`? Watch out for new developments and the awesome
 ## Can I also use it?
 Sure! Just clone the repo to your server, build the docker image and start it
 according to `rundocker.sh`. Then you can design your own frontend or use
-[this one](https://github.com/mtstahl/verkstad_client).
+[this one](https://github.com/higsch/verkstad_client).
 
 Of course zou can also directly use the docker image from the
 [public repository](https://hub.docker.com). Just execute 
@@ -47,7 +47,7 @@ the log file.
   2. Create `.env` file to hold the environment variables.
   3. Run `docker` image with `.env` file and mapped volumes forever (add cronjob).
   4. Configure ports and redirection.
-* Client ([other repo](https://github.com/mtstahl/verkstad_client))
+* Client ([other repo](https://github.com/higsch/verkstad_client))
   1. Find place to store `index.html` and `js` as well as
     `css` files from the `dist` folder.
   2. Configure ports and redirection.
