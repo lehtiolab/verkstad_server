@@ -2,7 +2,7 @@
 
 ## What does this piece of software do?
 
-This is a dockerized node.js app, which serves a
+This is a dockerized Node.js app, which serves a
 [simple todo app](https://github.com/higsch/verkstad_client). This app
 is intended to organize tasks for the maintenance of a
 [modern proteomics mass spectrometer](https://en.wikipedia.org/wiki/Mass_spectrometry).
@@ -19,7 +19,7 @@ The data is kept in a sqlite database.
 The app itself is dockerized and can easily be run on any server setup.
 
 Curious about `kanteleId`? Watch out for new developments and the awesome
-[Kantele platform](https://github.com/glormph/kantele) by
+[Kantele platform](https://github.com/glormph/kantele) by my colleague
 [@glormph](https://github.com/glormph).
 
 ## Can I also use it?
@@ -27,7 +27,7 @@ Sure! Just clone the repo to your server, build the docker image and start it
 according to `rundocker.sh`. Then you can design your own frontend or use
 [this one](https://github.com/higsch/verkstad_client).
 
-Of course zou can also directly use the docker image from the
+Of course you can also directly use the docker image from the
 [public repository](https://hub.docker.com). Just execute 
 ```bash
 docker run -it # for interactive session
@@ -45,10 +45,12 @@ the log file.
 * Server (this repo)
   1. Find place for sqlite file and log file.
   2. Create `.env` file to hold the environment variables.
-  3. Run `docker` image with `.env` file and mapped volumes forever (add cronjob).
+  3. Run `docker` image with `.env` file and mapped volumes forever (via cronjob).
   4. Configure ports and redirection.
 * Client ([other repo](https://github.com/higsch/verkstad_client))
   1. Find place to store `index.html` and `js` as well as
     `css` files from the `dist` folder.
   2. Configure ports and redirection.
-  
+
+## Sidenote
+This project was built during some very long nights in Stockholm's winter 2019.
