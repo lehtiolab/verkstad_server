@@ -87,6 +87,7 @@ module.exports = {
         include: [
           {
             model: User,
+            attributes: ['name'],
           },
         ],
       });
@@ -106,6 +107,7 @@ module.exports = {
         include: [
           {
             model: User,
+            attributes: ['name'],
           },
           {
             model: MachineTask,
