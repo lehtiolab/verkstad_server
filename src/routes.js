@@ -40,6 +40,7 @@ module.exports = (app) => {
   );
 
   app.post('/signup', 
+    isAuthenticated,
     AuthenticationControllerPolicy.signUp,
     AuthenticationController.signUp
   );
@@ -49,6 +50,7 @@ module.exports = (app) => {
   );
 
   app.get('/users',
+    isAuthenticated,
     AuthenticationController.index
   );
 
