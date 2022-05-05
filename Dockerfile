@@ -6,6 +6,11 @@ COPY package.json /app
 RUN npm install --production
 COPY src /app
 
-CMD ["node", "app.js"]
+# Do not run as root
+RUN adduser -D verkstad
+USER verkstad
 
-EXPOSE 8081
+# add the client build
+COPY public /app/public
+
+CMD ["node", "app.js"]
