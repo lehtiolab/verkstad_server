@@ -1,8 +1,9 @@
 const Promise = require('bluebird');
 const bcrypt = Promise.promisifyAll(require('bcrypt-nodejs'));
 
+const SALT_FACTOR = 8;
+
 function hashPassword(user, options) {
-  const SALT_FACTOR = 8;
 
   if (!user.changed('password')) {
     return;
@@ -39,5 +40,11 @@ module.exports = (sequelize, DataTypes) => {
     return bcrypt.compareAsync(password, this.password);
   }
 
+  User.upsert({
+      id: 1,
+      email: process.env.INITUSER_MAIL,
+      name: process.env.INITUSER_NAME,
+      password: bcrypt.hashSync(process.env.INITUSER_PASS, bcrypt.genSaltSync(SALT_FACTOR)),
+  });
   return User;
 };
