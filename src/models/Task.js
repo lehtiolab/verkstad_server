@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATE
     },
     interval: {
-      type: DataTypes.TIME,
+      type: DataTypes.INTEGER,
     },
   }, {
     hooks: {

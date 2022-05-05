@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
     },
     interval: {
-      type: DataTypes.TIME,
+      type: DataTypes.INTEGER,
     },
     user: {
       type: DataTypes.STRING,
