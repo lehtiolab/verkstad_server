@@ -11,6 +11,6 @@ RUN adduser -D verkstad
 USER verkstad
 
 # add the client build
-COPY public /app/public
+COPY frontend/dist /app/public
 
 CMD ["node", "app.js"]

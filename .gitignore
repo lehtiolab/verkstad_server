@@ -1,6 +1,7 @@
 # custom
 node_modules
 /dist
+/frontend/dist
 .env
 
 # local env files
